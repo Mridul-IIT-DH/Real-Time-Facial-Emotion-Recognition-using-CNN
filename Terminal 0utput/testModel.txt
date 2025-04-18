@@ -1,0 +1,17 @@
+(.venv) 
+@M MINGW64 /c/Users/Real-Time Facial Emotion Recognition using CNN
+$ python testModel.py
+2025-04-18 14:54:40.822697: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-18 14:54:45.004274: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Loading model and labels...
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1744968300.071018   18612 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+2025-04-18 14:55:00.090599: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Model loaded successfully.
+Emotion labels loaded: ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+Starting webcam...
+Webcam opened. Press 'q' to quit.
+Quitting...
+Resources released.

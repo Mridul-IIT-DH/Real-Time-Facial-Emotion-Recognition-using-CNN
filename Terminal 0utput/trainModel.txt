@@ -1,0 +1,381 @@
+(.venv) 
+@M MINGW64 /c/Users/Real-Time Facial Emotion Recognition using CNN
+$ python trainModel.py
+2025-04-18 13:08:58.815250: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-18 13:09:00.512657: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+TensorFlow Version: 2.19.0
+Loading preprocessed data...
+Found 7 emotion classes: ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+Data shapes:
+  X_train: (27146, 48, 48, 1)
+  y_train: (27146,)
+  X_test: (6790, 48, 48, 1)
+  y_test: (6790,)
+Rescaling test data (dividing by 255.0)...
+Calculating class weights...
+Class Weights: {0: 1.0613026819923372, 1: 10.072727272727272, 2: 1.0305607228275313, 3: 0.553604568165596, 4: 0.7992580379225062, 5: 0.8726372637263726, 6: 1.2744002628984554}
+Setting up data augmentation...
+Building CNN model...
+2025-04-18 13:09:04.550292: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Compiling model...
+Model: "sequential"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                      │ (None, 48, 48, 32)          │             320 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization                  │ (None, 48, 48, 32)          │             128 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_1 (Conv2D)                    │ (None, 48, 48, 32)          │           9,248 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_1                │ (None, 48, 48, 32)          │             128 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d (MaxPooling2D)         │ (None, 24, 24, 32)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_2 (Conv2D)                    │ (None, 24, 24, 64)          │          18,496 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_2                │ (None, 24, 24, 64)          │             256 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_3 (Conv2D)                    │ (None, 24, 24, 64)          │          36,928 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_3                │ (None, 24, 24, 64)          │             256 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_1 (MaxPooling2D)       │ (None, 12, 12, 64)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_4 (Conv2D)                    │ (None, 12, 12, 128)         │          73,856 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_4                │ (None, 12, 12, 128)         │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_5 (Conv2D)                    │ (None, 12, 12, 128)         │         147,584 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_5                │ (None, 12, 12, 128)         │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_2 (MaxPooling2D)       │ (None, 6, 6, 128)           │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ flatten (Flatten)                    │ (None, 4608)                │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 256)                 │       1,179,904 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_6                │ (None, 256)                 │           1,024 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 256)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 128)                 │          32,896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_7                │ (None, 128)                 │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_1 (Dropout)                  │ (None, 128)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_2 (Dense)                      │ (None, 7)                   │             903 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 1,503,463 (5.74 MB)
+ Trainable params: 1,501,799 (5.73 MB)
+ Non-trainable params: 1,664 (6.50 KB)
+Setting up callbacks...
+Starting training...
+C:\Users\Real-Time Facial Emotion Recognition using CNN\.venv\Lib\site-packages\keras\src\trainers\data_adapters\py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+Epoch 1/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 378ms/step - accuracy: 0.1614 - loss: 3.6591  
+Epoch 1: val_accuracy improved from -inf to 0.18910, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 177s 404ms/step - accuracy: 0.1614 - loss: 3.6585 - val_accuracy: 0.1891 - val_loss: 2.8430 - learning_rate: 0.0010
+Epoch 2/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:32 360ms/step - accuracy: 0.0781 - loss: 2.9159C:\Users\Real-Time Facial Emotion Recognition using CNN\.venv\Lib\site-packages\keras\src\trainers\epoch_iterator.py:107: UserWarning: Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches. You may need to use the `.repeat()` function when building your dataset.
+  self._interrupted_warning()
+
+Epoch 2: val_accuracy did not improve from 0.18910
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 25ms/step - accuracy: 0.0781 - loss: 2.9159 - val_accuracy: 0.1872 - val_loss: 2.8401 - learning_rate: 0.0010
+Epoch 3/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 402ms/step - accuracy: 0.1787 - loss: 2.9723    
+Epoch 3: val_accuracy improved from 0.18910 to 0.24109, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 179s 422ms/step - accuracy: 0.1787 - loss: 2.9721 - val_accuracy: 0.2411 - val_loss: 2.6555 - learning_rate: 0.0010
+Epoch 4/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:13 317ms/step - accuracy: 0.1250 - loss: 3.6571  
+Epoch 4: val_accuracy did not improve from 0.24109
+424/424 ━━━━━━━━━━━━━━━━━━━━ 8s 19ms/step - accuracy: 0.1250 - loss: 3.6571 - val_accuracy: 0.2290 - val_loss: 2.6790 - learning_rate: 0.0010
+Epoch 5/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 433ms/step - accuracy: 0.2153 - loss: 2.6460    
+Epoch 5: val_accuracy improved from 0.24109 to 0.35965, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 194s 458ms/step - accuracy: 0.2154 - loss: 2.6458 - val_accuracy: 0.3596 - val_loss: 2.3504 - learning_rate: 0.0010
+Epoch 6/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:41 383ms/step - accuracy: 0.2812 - loss: 2.9269
+Epoch 6: val_accuracy improved from 0.35965 to 0.36421, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 25ms/step - accuracy: 0.2812 - loss: 2.9269 - val_accuracy: 0.3642 - val_loss: 2.3475 - learning_rate: 0.0010
+Epoch 7/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 440ms/step - accuracy: 0.2856 - loss: 2.4118  
+Epoch 7: val_accuracy improved from 0.36421 to 0.37585, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 200s 471ms/step - accuracy: 0.2857 - loss: 2.4117 - val_accuracy: 0.3758 - val_loss: 2.1836 - learning_rate: 0.0010
+Epoch 8/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 3:32 502ms/step - accuracy: 0.3438 - loss: 2.3088
+Epoch 8: val_accuracy did not improve from 0.37585
+424/424 ━━━━━━━━━━━━━━━━━━━━ 14s 31ms/step - accuracy: 0.3438 - loss: 2.3088 - val_accuracy: 0.3747 - val_loss: 2.1797 - learning_rate: 0.0010
+Epoch 9/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 511ms/step - accuracy: 0.3504 - loss: 2.2177  
+Epoch 9: val_accuracy improved from 0.37585 to 0.41001, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 228s 539ms/step - accuracy: 0.3505 - loss: 2.2176 - val_accuracy: 0.4100 - val_loss: 2.0473 - learning_rate: 0.0010
+Epoch 10/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:49 401ms/step - accuracy: 0.3906 - loss: 2.0946
+Epoch 10: val_accuracy did not improve from 0.41001
+424/424 ━━━━━━━━━━━━━━━━━━━━ 12s 27ms/step - accuracy: 0.3906 - loss: 2.0946 - val_accuracy: 0.4093 - val_loss: 2.0656 - learning_rate: 0.0010
+Epoch 11/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 484ms/step - accuracy: 0.3981 - loss: 2.0285  
+Epoch 11: val_accuracy did not improve from 0.41001
+424/424 ━━━━━━━━━━━━━━━━━━━━ 217s 513ms/step - accuracy: 0.3982 - loss: 2.0285 - val_accuracy: 0.3862 - val_loss: 2.0539 - learning_rate: 0.0010
+Epoch 12/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 3:11 453ms/step - accuracy: 0.3906 - loss: 2.0753
+Epoch 12: val_accuracy did not improve from 0.41001
+
+Epoch 12: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.    
+424/424 ━━━━━━━━━━━━━━━━━━━━ 12s 28ms/step - accuracy: 0.3906 - loss: 2.0753 - val_accuracy: 0.3892 - val_loss: 2.0493 - learning_rate: 0.0010
+Epoch 13/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 470ms/step - accuracy: 0.4367 - loss: 1.8973  
+Epoch 13: val_accuracy improved from 0.41001 to 0.48513, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 212s 499ms/step - accuracy: 0.4367 - loss: 1.8972 - val_accuracy: 0.4851 - val_loss: 1.7237 - learning_rate: 5.0000e-04
+Epoch 14/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:50 403ms/step - accuracy: 0.5312 - loss: 1.6355
+Epoch 14: val_accuracy did not improve from 0.48513
+424/424 ━━━━━━━━━━━━━━━━━━━━ 12s 28ms/step - accuracy: 0.5312 - loss: 1.6355 - val_accuracy: 0.4850 - val_loss: 1.7213 - learning_rate: 5.0000e-04
+Epoch 15/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 457ms/step - accuracy: 0.4580 - loss: 1.7938  
+Epoch 15: val_accuracy did not improve from 0.48513
+424/424 ━━━━━━━━━━━━━━━━━━━━ 204s 482ms/step - accuracy: 0.4581 - loss: 1.7937 - val_accuracy: 0.4705 - val_loss: 1.6872 - learning_rate: 5.0000e-04
+Epoch 16/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:55 416ms/step - accuracy: 0.3594 - loss: 2.0082
+Epoch 16: val_accuracy did not improve from 0.48513
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 26ms/step - accuracy: 0.3594 - loss: 2.0082 - val_accuracy: 0.4705 - val_loss: 1.6830 - learning_rate: 5.0000e-04
+Epoch 17/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 410ms/step - accuracy: 0.4765 - loss: 1.7433  
+Epoch 17: val_accuracy improved from 0.48513 to 0.51458, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 184s 434ms/step - accuracy: 0.4766 - loss: 1.7433 - val_accuracy: 0.5146 - val_loss: 1.5862 - learning_rate: 5.0000e-04
+Epoch 18/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:27 349ms/step - accuracy: 0.4531 - loss: 1.6489
+Epoch 18: val_accuracy did not improve from 0.51458
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.4531 - loss: 1.6489 - val_accuracy: 0.5137 - val_loss: 1.5873 - learning_rate: 5.0000e-04
+Epoch 19/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 409ms/step - accuracy: 0.4788 - loss: 1.6996  
+Epoch 19: val_accuracy improved from 0.51458 to 0.52283, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 183s 433ms/step - accuracy: 0.4788 - loss: 1.6996 - val_accuracy: 0.5228 - val_loss: 1.6004 - learning_rate: 5.0000e-04
+Epoch 20/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:23 340ms/step - accuracy: 0.4688 - loss: 1.8077
+Epoch 20: val_accuracy improved from 0.52283 to 0.52518, saving model to emotion_cnn_model_v2.keras
+
+Epoch 20: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.    
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 24ms/step - accuracy: 0.4688 - loss: 1.8077 - val_accuracy: 0.5252 - val_loss: 1.6013 - learning_rate: 5.0000e-04
+Epoch 21/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 410ms/step - accuracy: 0.5093 - loss: 1.6106  
+Epoch 21: val_accuracy improved from 0.52518 to 0.52563, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 184s 433ms/step - accuracy: 0.5093 - loss: 1.6105 - val_accuracy: 0.5256 - val_loss: 1.5728 - learning_rate: 2.5000e-04
+Epoch 22/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:25 344ms/step - accuracy: 0.5469 - loss: 1.6765
+Epoch 22: val_accuracy did not improve from 0.52563
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 24ms/step - accuracy: 0.5469 - loss: 1.6765 - val_accuracy: 0.5209 - val_loss: 1.5811 - learning_rate: 2.5000e-04
+Epoch 23/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 408ms/step - accuracy: 0.5249 - loss: 1.5550  
+Epoch 23: val_accuracy improved from 0.52563 to 0.54286, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 183s 432ms/step - accuracy: 0.5249 - loss: 1.5550 - val_accuracy: 0.5429 - val_loss: 1.4787 - learning_rate: 2.5000e-04
+Epoch 24/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:29 353ms/step - accuracy: 0.6250 - loss: 1.4079
+Epoch 24: val_accuracy improved from 0.54286 to 0.54418, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 24ms/step - accuracy: 0.6250 - loss: 1.4079 - val_accuracy: 0.5442 - val_loss: 1.4776 - learning_rate: 2.5000e-04
+Epoch 25/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 410ms/step - accuracy: 0.5283 - loss: 1.5153  
+Epoch 25: val_accuracy improved from 0.54418 to 0.55567, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 184s 434ms/step - accuracy: 0.5283 - loss: 1.5153 - val_accuracy: 0.5557 - val_loss: 1.4826 - learning_rate: 2.5000e-04
+Epoch 26/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:26 347ms/step - accuracy: 0.5781 - loss: 1.3401
+Epoch 26: val_accuracy did not improve from 0.55567
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.5781 - loss: 1.3401 - val_accuracy: 0.5524 - val_loss: 1.4937 - learning_rate: 2.5000e-04
+Epoch 27/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 407ms/step - accuracy: 0.5453 - loss: 1.4838  
+Epoch 27: val_accuracy did not improve from 0.55567
+424/424 ━━━━━━━━━━━━━━━━━━━━ 182s 430ms/step - accuracy: 0.5453 - loss: 1.4839 - val_accuracy: 0.5538 - val_loss: 1.4693 - learning_rate: 2.5000e-04
+Epoch 28/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:58 422ms/step - accuracy: 0.5312 - loss: 1.6749
+Epoch 28: val_accuracy improved from 0.55567 to 0.55729, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 26ms/step - accuracy: 0.5312 - loss: 1.6749 - val_accuracy: 0.5573 - val_loss: 1.4618 - learning_rate: 2.5000e-04
+Epoch 29/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 415ms/step - accuracy: 0.5414 - loss: 1.4765  
+Epoch 29: val_accuracy improved from 0.55729 to 0.57246, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 187s 441ms/step - accuracy: 0.5414 - loss: 1.4765 - val_accuracy: 0.5725 - val_loss: 1.4198 - learning_rate: 2.5000e-04
+Epoch 30/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:34 365ms/step - accuracy: 0.4688 - loss: 1.8529
+Epoch 30: val_accuracy improved from 0.57246 to 0.57511, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 24ms/step - accuracy: 0.4688 - loss: 1.8529 - val_accuracy: 0.5751 - val_loss: 1.4171 - learning_rate: 2.5000e-04
+Epoch 31/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 410ms/step - accuracy: 0.5540 - loss: 1.4539  
+Epoch 31: val_accuracy did not improve from 0.57511
+424/424 ━━━━━━━━━━━━━━━━━━━━ 184s 434ms/step - accuracy: 0.5540 - loss: 1.4539 - val_accuracy: 0.5283 - val_loss: 1.5207 - learning_rate: 2.5000e-04
+Epoch 32/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:54 414ms/step - accuracy: 0.5000 - loss: 1.4083
+Epoch 32: val_accuracy did not improve from 0.57511
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.5000 - loss: 1.4083 - val_accuracy: 0.5314 - val_loss: 1.5113 - learning_rate: 2.5000e-04
+Epoch 33/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 407ms/step - accuracy: 0.5552 - loss: 1.4542  
+Epoch 33: val_accuracy did not improve from 0.57511
+
+Epoch 33: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.    
+424/424 ━━━━━━━━━━━━━━━━━━━━ 182s 430ms/step - accuracy: 0.5552 - loss: 1.4542 - val_accuracy: 0.5663 - val_loss: 1.4298 - learning_rate: 2.5000e-04
+Epoch 34/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:47 397ms/step - accuracy: 0.5312 - loss: 1.8367
+Epoch 34: val_accuracy did not improve from 0.57511
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.5312 - loss: 1.8367 - val_accuracy: 0.5676 - val_loss: 1.4293 - learning_rate: 1.2500e-04
+Epoch 35/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 409ms/step - accuracy: 0.5709 - loss: 1.3969  
+Epoch 35: val_accuracy improved from 0.57511 to 0.59971, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 184s 433ms/step - accuracy: 0.5710 - loss: 1.3969 - val_accuracy: 0.5997 - val_loss: 1.3312 - learning_rate: 1.2500e-04
+Epoch 36/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:31 359ms/step - accuracy: 0.5000 - loss: 1.5792
+Epoch 36: val_accuracy did not improve from 0.59971
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 24ms/step - accuracy: 0.5000 - loss: 1.5792 - val_accuracy: 0.5997 - val_loss: 1.3314 - learning_rate: 1.2500e-04
+Epoch 37/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 409ms/step - accuracy: 0.5851 - loss: 1.3677  
+Epoch 37: val_accuracy improved from 0.59971 to 0.60265, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 185s 435ms/step - accuracy: 0.5851 - loss: 1.3677 - val_accuracy: 0.6027 - val_loss: 1.3185 - learning_rate: 1.2500e-04
+Epoch 38/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:30 357ms/step - accuracy: 0.6719 - loss: 1.4438
+Epoch 38: val_accuracy improved from 0.60265 to 0.60309, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 12s 27ms/step - accuracy: 0.6719 - loss: 1.4438 - val_accuracy: 0.6031 - val_loss: 1.3163 - learning_rate: 1.2500e-04
+Epoch 39/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 431ms/step - accuracy: 0.5805 - loss: 1.3354  
+Epoch 39: val_accuracy did not improve from 0.60309
+424/424 ━━━━━━━━━━━━━━━━━━━━ 193s 456ms/step - accuracy: 0.5806 - loss: 1.3354 - val_accuracy: 0.6025 - val_loss: 1.3243 - learning_rate: 1.2500e-04
+Epoch 40/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:54 413ms/step - accuracy: 0.5781 - loss: 1.4414
+Epoch 40: val_accuracy did not improve from 0.60309
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.5781 - loss: 1.4414 - val_accuracy: 0.6031 - val_loss: 1.3222 - learning_rate: 1.2500e-04
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 432ms/step - accuracy: 0.5880 - loss: 1.3432
+Epoch 41: val_accuracy improved from 0.60309 to 0.61679, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 194s 458ms/step - accuracy: 0.5880 - loss: 1.3432 - val_accuracy: 0.6168 - val_loss: 1.2745 - learning_rate: 1.2500e-04
+Epoch 42/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 3:10 450ms/step - accuracy: 0.6250 - loss: 1.2964
+Epoch 42: val_accuracy improved from 0.61679 to 0.61694, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 26ms/step - accuracy: 0.6250 - loss: 1.2964 - val_accuracy: 0.6169 - val_loss: 1.2740 - learning_rate: 1.2500e-04
+Epoch 43/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 465ms/step - accuracy: 0.5895 - loss: 1.3252 
+Epoch 43: val_accuracy did not improve from 0.61694
+424/424 ━━━━━━━━━━━━━━━━━━━━ 209s 493ms/step - accuracy: 0.5895 - loss: 1.3252 - val_accuracy: 0.5950 - val_loss: 1.3400 - learning_rate: 1.2500e-04
+Epoch 44/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 3:07 442ms/step - accuracy: 0.5938 - loss: 1.3106
+Epoch 44: val_accuracy did not improve from 0.61694
+424/424 ━━━━━━━━━━━━━━━━━━━━ 12s 27ms/step - accuracy: 0.5938 - loss: 1.3106 - val_accuracy: 0.5959 - val_loss: 1.3379 - learning_rate: 1.2500e-04
+Epoch 45/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 431ms/step - accuracy: 0.5894 - loss: 1.2845  
+Epoch 45: val_accuracy improved from 0.61694 to 0.61944, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 194s 456ms/step - accuracy: 0.5894 - loss: 1.2845 - val_accuracy: 0.6194 - val_loss: 1.2613 - learning_rate: 1.2500e-04
+Epoch 46/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:33 362ms/step - accuracy: 0.5781 - loss: 1.6505
+Epoch 46: val_accuracy did not improve from 0.61944
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 24ms/step - accuracy: 0.5781 - loss: 1.6505 - val_accuracy: 0.6189 - val_loss: 1.2622 - learning_rate: 1.2500e-04
+Epoch 47/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 425ms/step - accuracy: 0.5968 - loss: 1.2817  
+Epoch 47: val_accuracy did not improve from 0.61944
+424/424 ━━━━━━━━━━━━━━━━━━━━ 189s 447ms/step - accuracy: 0.5968 - loss: 1.2817 - val_accuracy: 0.6063 - val_loss: 1.3048 - learning_rate: 1.2500e-04
+Epoch 48/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:37 372ms/step - accuracy: 0.5781 - loss: 1.2089
+Epoch 48: val_accuracy did not improve from 0.61944
+
+Epoch 48: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+424/424 ━━━━━━━━━━━━━━━━━━━━ 9s 22ms/step - accuracy: 0.5781 - loss: 1.2089 - val_accuracy: 0.6072 - val_loss: 1.3044 - learning_rate: 1.2500e-04
+Epoch 49/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 392ms/step - accuracy: 0.5990 - loss: 1.2546  
+Epoch 49: val_accuracy improved from 0.61944 to 0.63137, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 176s 416ms/step - accuracy: 0.5990 - loss: 1.2546 - val_accuracy: 0.6314 - val_loss: 1.2258 - learning_rate: 6.2500e-05
+Epoch 50/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:14 318ms/step - accuracy: 0.6406 - loss: 1.5347
+Epoch 50: val_accuracy did not improve from 0.63137
+424/424 ━━━━━━━━━━━━━━━━━━━━ 9s 21ms/step - accuracy: 0.6406 - loss: 1.5347 - val_accuracy: 0.6314 - val_loss: 1.2256 - learning_rate: 6.2500e-05
+Epoch 51/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 382ms/step - accuracy: 0.6112 - loss: 1.2440  
+Epoch 51: val_accuracy did not improve from 0.63137
+424/424 ━━━━━━━━━━━━━━━━━━━━ 172s 405ms/step - accuracy: 0.6112 - loss: 1.2440 - val_accuracy: 0.6168 - val_loss: 1.2618 - learning_rate: 6.2500e-05
+Epoch 52/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 3:21 478ms/step - accuracy: 0.6094 - loss: 1.1861
+Epoch 52: val_accuracy did not improve from 0.63137
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.6094 - loss: 1.1861 - val_accuracy: 0.6183 - val_loss: 1.2594 - learning_rate: 6.2500e-05
+Epoch 53/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 381ms/step - accuracy: 0.6097 - loss: 1.2358  
+Epoch 53: val_accuracy did not improve from 0.63137
+
+Epoch 53: ReduceLROnPlateau reducing learning rate to 3.125000148429535e-05.
+424/424 ━━━━━━━━━━━━━━━━━━━━ 170s 402ms/step - accuracy: 0.6097 - loss: 1.2358 - val_accuracy: 0.6244 - val_loss: 1.2325 - learning_rate: 6.2500e-05
+Epoch 54/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:32 360ms/step - accuracy: 0.4844 - loss: 1.3070
+Epoch 54: val_accuracy did not improve from 0.63137
+424/424 ━━━━━━━━━━━━━━━━━━━━ 9s 21ms/step - accuracy: 0.4844 - loss: 1.3070 - val_accuracy: 0.6252 - val_loss: 1.2319 - learning_rate: 3.1250e-05
+Epoch 55/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 401ms/step - accuracy: 0.6177 - loss: 1.2033  
+Epoch 55: val_accuracy improved from 0.63137 to 0.63490, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 180s 425ms/step - accuracy: 0.6177 - loss: 1.2033 - val_accuracy: 0.6349 - val_loss: 1.2133 - learning_rate: 3.1250e-05
+Epoch 56/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:19 330ms/step - accuracy: 0.5625 - loss: 1.4491
+Epoch 56: val_accuracy did not improve from 0.63490
+424/424 ━━━━━━━━━━━━━━━━━━━━ 10s 23ms/step - accuracy: 0.5625 - loss: 1.4491 - val_accuracy: 0.6348 - val_loss: 1.2131 - learning_rate: 3.1250e-05
+Epoch 57/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 373ms/step - accuracy: 0.6144 - loss: 1.1975  
+Epoch 57: val_accuracy improved from 0.63490 to 0.63711, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 169s 398ms/step - accuracy: 0.6144 - loss: 1.1975 - val_accuracy: 0.6371 - val_loss: 1.2039 - learning_rate: 3.1250e-05
+Epoch 58/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:40 380ms/step - accuracy: 0.5312 - loss: 1.3444
+Epoch 58: val_accuracy improved from 0.63711 to 0.63741, saving model to emotion_cnn_model_v2.keras
+424/424 ━━━━━━━━━━━━━━━━━━━━ 11s 24ms/step - accuracy: 0.5312 - loss: 1.3444 - val_accuracy: 0.6374 - val_loss: 1.2042 - learning_rate: 3.1250e-05
+Epoch 59/60
+424/424 ━━━━━━━━━━━━━━━━━━━━ 0s 378ms/step - accuracy: 0.6229 - loss: 1.1840  
+Epoch 59: val_accuracy did not improve from 0.63741
+424/424 ━━━━━━━━━━━━━━━━━━━━ 169s 399ms/step - accuracy: 0.6229 - loss: 1.1840 - val_accuracy: 0.6312 - val_loss: 1.2068 - learning_rate: 3.1250e-05
+Epoch 60/60
+  1/424 ━━━━━━━━━━━━━━━━━━━━ 2:31 357ms/step - accuracy: 0.6875 - loss: 1.0967
+Epoch 60: val_accuracy did not improve from 0.63741
+
+Epoch 60: ReduceLROnPlateau reducing learning rate to 1.5625000742147677e-05.
+424/424 ━━━━━━━━━━━━━━━━━━━━ 9s 20ms/step - accuracy: 0.6875 - loss: 1.0967 - val_accuracy: 0.6306 - val_loss: 1.2068 - learning_rate: 3.1250e-05
+Restoring model weights from the end of the best epoch: 57.
+
+Training finished.
+
+Evaluating model on test set...
+Loading best model from emotion_cnn_model_v2.keras
+Test Loss: 1.2042
+Test Accuracy: 63.74%
+
+Generating detailed evaluation report...
+213/213 ━━━━━━━━━━━━━━━━━━━━ 10s 45ms/step  
+
+Classification Report:
+              precision    recall  f1-score   support
+
+       angry      0.552     0.562     0.557       875
+     disgust      0.329     0.776     0.462        98
+        fear      0.525     0.342     0.414       961
+       happy      0.903     0.834     0.867      1728
+     neutral      0.553     0.658     0.601      1201
+         sad      0.497     0.487     0.492      1137
+    surprise      0.718     0.818     0.764       790
+
+    accuracy                          0.637      6790
+   macro avg      0.582     0.640     0.594      6790
+weighted avg      0.644     0.637     0.635      6790
+
+
+Confusion Matrix:
+[[ 492   63   59   16  111  108   26]
+ [  14   76    2    2    2    1    1]
+ [ 142   27  329   22  114  212  115]
+ [  42    7   22 1441  116   46   54]
+ [  62   25   52   59  790  179   34]
+ [ 119   28  104   37  271  554   24]
+ [  21    5   59   19   25   15  646]]
+Confusion matrix plot saved to confusion_matrix.png
+
+Plotting training history...
+Training history plot saved to training_history.png
+
+Script finished.

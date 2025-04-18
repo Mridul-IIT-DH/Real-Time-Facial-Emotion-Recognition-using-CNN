@@ -1,0 +1,54 @@
+(.venv) 
+@M MINGW64 /c/Users/Real-Time Facial Emotion Recognition using CNN
+$ python prepareData.py
+2025-04-18 12:54:12.910089: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-18 12:54:15.347819: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Starting data preparation...
+
+Processing 'train' data from: C:/Users/Real-Time Facial Emotion Recognition using CNN/data/train
+Detected emotion labels: {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
+  Processing emotion: angry (Index: 0)
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1744961061.591028    1472 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+    angry: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3995/3995 [00:46<00:00, 85.73it/s]
+  Processing emotion: disgust (Index: 1)
+    disgust: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 436/436 [00:04<00:00, 87.94it/s] 
+  Processing emotion: fear (Index: 2)
+    fear: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4097/4097 [00:48<00:00, 83.74it/s] 
+  Processing emotion: happy (Index: 3)
+    happy: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 7215/7215 [01:27<00:00, 82.36it/s] 
+  Processing emotion: neutral (Index: 4)
+    neutral: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4965/4965 [01:03<00:00, 77.77it/s] 
+  Processing emotion: sad (Index: 5)
+    sad: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4830/4830 [01:00<00:00, 80.38it/s] 
+  Processing emotion: surprise (Index: 6)
+    surprise: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3171/3171 [00:43<00:00, 72.83it/s] 
+
+Saved 'train' set: 27146 samples.
+  Features saved to: .\X_train.npy (Shape: (27146, 48, 48, 1))
+  Labels saved to:   .\y_train.npy (Shape: (27146,))
+
+Processing 'test' data from: C:/Users/Real-Time Facial Emotion Recognition using CNN/data/test
+  Processing emotion: angry (Index: 0)
+    angry: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 958/958 [00:14<00:00, 67.22it/s] 
+  Processing emotion: disgust (Index: 1)
+    disgust: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 111/111 [00:02<00:00, 54.73it/s] 
+  Processing emotion: fear (Index: 2)
+    fear: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1024/1024 [00:13<00:00, 74.97it/s] 
+  Processing emotion: happy (Index: 3)
+    happy: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1774/1774 [00:23<00:00, 75.60it/s] 
+  Processing emotion: neutral (Index: 4)
+    neutral: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1233/1233 [00:16<00:00, 76.00it/s] 
+  Processing emotion: sad (Index: 5)
+    sad: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1247/1247 [00:16<00:00, 76.06it/s] 
+  Processing emotion: surprise (Index: 6)
+    surprise: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 831/831 [00:09<00:00, 85.65it/s] 
+
+Saved 'test' set: 6790 samples.
+  Features saved to: .\X_test.npy (Shape: (6790, 48, 48, 1))
+  Labels saved to:   .\y_test.npy (Shape: (6790,))
+
+Emotion label map saved to: .\emotion_labels.npy
+
+Data preparation finished.

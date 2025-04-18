@@ -1,0 +1,22 @@
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Environments
+.venv/
+
+# --- Data & Model Files ---
+# Generated NumPy data arrays (can be large and regenerated)
+*.npy
+
+# Saved Keras/TensorFlow models (can be large and regenerated)
+*.keras
+
+# Generated plots/images
+*.png
+*.jpg
+*.jpeg
+
+# Dataset
+data/
+*.zip
