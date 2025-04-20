@@ -27,12 +27,14 @@ This project implements a Convolutional Neural Network (CNN) using TensorFlow/Ke
 │   ├── train/
 │   │   ├── happy/
 │   │   ├── sad/   
-|   │   └── ... (other emotion folders)
+│   │   └── ... (other emotion folders)
 │   └── test/
 │       ├── happy/
 │       ├── sad/
 │       └── ... (other emotion folders)
-├── .venv/             # Python virtual environment directory (ignored by git). Needs to be created by user
+├── .venv/             
+# Python virtual environment directory (ignored by git)
+# Needs to be created by user
 ```
  
 ## Generated Files (ignored by git) 
@@ -70,12 +72,15 @@ This project implements a Convolutional Neural Network (CNN) using TensorFlow/Ke
 
 2.  **Create and activate a virtual environment:** (Recommended)
     ```bash
-    # Create the virtual environment (using the name .venv)
+    # On windows: Use inbuilt virtual enviornment maker of VS Code. 
+    # It will create the virtual environment using the name .venv.
+    
+    # On macOS/Linux:
     python -m venv .venv
 
     # Activate it
     # On Windows:
-    .\.venv\Scripts\activate
+    source ".venv/Scripts/activate"
     # On macOS/Linux:
     source .venv/bin/activate
     ```
